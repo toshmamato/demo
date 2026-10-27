@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Platforma — Kirish</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f5f6;--card:#fff;--ink:#16213a;--mut:#6b7488;--line:#d5d9e2;--acc:#ff5a14;--acc2:#ffe9de;--ok:#1f9d63;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10131b;--card:#181c27;--ink:#eef0f6;--mut:#99a1b5;--line:#2c3243;--acc2:#3a2418}}
+:root[data-theme="dark"]{--bg:#10131b;--card:#181c27;--ink:#eef0f6;--mut:#99a1b5;--line:#2c3243;--acc2:#3a2418}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif;font-size:15px}
+.hide{display:none!important}
+.center{min-height:100vh;display:grid;place-items:center;padding:20px}
+.box{background:var(--card);border-radius:14px;box-shadow:0 8px 30px rgba(20,30,60,.08);padding:32px;width:100%;max-width:400px}
+.logo{display:flex;align-items:center;justify-content:center;gap:8px;font-weight:800;font-size:24px;margin-bottom:24px}
+.logo i{width:30px;height:30px;background:var(--acc);border-radius:8px;display:inline-block;transform:rotate(45deg) scale(.8)}
+.tabs{display:flex;background:var(--bg);border-radius:10px;padding:4px;margin-bottom:18px}
+.tabs button{flex:1;border:0;background:none;padding:9px;border-radius:8px;font:inherit;font-weight:600;color:var(--mut);cursor:pointer}
+.tabs button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+label{display:block;font-size:12px;color:var(--mut);margin:0 0 5px 2px}
+input,select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--ink);font:inherit;margin-bottom:14px}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.btn{width:100%;border:0;background:var(--acc);color:#fff;padding:13px;border-radius:8px;font:inherit;font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(255,90,20,.3)}
+.btn:hover{filter:brightness(1.07)}
+.err{color:#d93a3a;font-size:13px;min-height:18px;margin:-4px 0 10px}
+.pw{position:relative}.pw button{position:absolute;right:8px;top:7px;border:0;background:none;color:var(--mut);cursor:pointer;padding:6px;font:inherit;font-size:12px}
+.gen{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:-6px 0 12px;font-size:12px;color:var(--mut)}.gen button{border:1px solid var(--line);background:none;color:var(--ink);border-radius:6px;padding:5px 10px;font:inherit;cursor:pointer}
+.cb{border:1px solid var(--line);background:none;color:var(--ink);border-radius:8px;padding:7px 12px;font:inherit;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chips button{border:1px solid var(--line);background:none;color:var(--ink);padding:9px 14px;border-radius:99px;font:inherit;cursor:pointer}
+.chips button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+h1{font-size:22px;margin:0 0 6px}h2{font-size:17px;margin:0 0 12px}.sub{color:var(--mut);margin:0 0 20px}
+/* dashboard */
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+aside{background:var(--card);border-right:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;gap:4px}
+aside .logo{justify-content:flex-start;font-size:19px;margin:0 6px 20px}
+aside a{padding:10px 12px;border-radius:8px;color:var(--mut);font-weight:600;cursor:pointer;display:block}
+aside a.on{background:var(--acc2);color:var(--acc)}
+aside .out{margin-top:auto;border:1px solid var(--line);background:none;color:var(--ink);padding:10px;border-radius:8px;font:inherit;cursor:pointer}
+main{padding:28px;max-width:1000px;width:100%}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}
+.av{width:42px;height:42px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:800}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:22px}
+.st{background:var(--card);border-radius:12px;padding:16px}
+.st b{display:block;font-size:26px;margin-top:4px}
+.panel{background:var(--card);border-radius:12px;padding:20px;margin-bottom:18px}
+.course{display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line)}
+.course:first-of-type{border-top:0}
+.course .t{flex:1;min-width:0}.course small{color:var(--mut)}
+.bar{height:6px;background:var(--bg);border-radius:9px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--acc)}
+.course button{border:1px solid var(--acc);color:var(--acc);background:none;border-radius:8px;padding:7px 12px;font:inherit;font-weight:600;cursor:pointer}
+.tasks label{display:flex;gap:10px;align-items:center;color:var(--ink);font-size:15px;padding:8px 0;margin:0}
+.tasks input{width:auto;margin:0}
+.add{display:flex;gap:8px;margin-top:10px}.add input{margin:0}.add button{width:auto;padding:0 18px}
+@media(max-width:760px){.app{grid-template-columns:1fr}aside{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);align-items:center}aside .logo{display:none}aside .out{margin:0 0 0 auto}main{padding:18px}}
+</style>
+</head>
+<body>
+
+<!-- KIRISH / RO'YXATDAN O'TISH -->
+<section id="auth" class="center hide">
+  <div class="box">
+    <div class="logo"><i></i>Platforma</div>
+    <div class="tabs"><button id="tL" class="on">Kirish</button><button id="tR">Ro‘yxatdan o‘tish</button></div>
+    <label for="ph">Telefon raqam</label>
+    <input id="ph" inputmode="tel" value="+998 " autocomplete="tel">
+    <div id="pwbox">
+    <label for="pw">Parol</label>
+    <div class="pw"><input id="pw" type="password" autocomplete="current-password"><button id="eye" type="button">Ko‘rsatish</button></div>
+    <div id="gen" class="gen hide"><span>Parol avtomatik yaratildi. Uni saqlab qo‘ying.</span><button id="cp" type="button">Nusxa olish</button><button id="nw" type="button">Yangisi</button></div>
+    </div>
+    <div id="err" class="err" role="alert"></div>
+    <button id="go" class="btn">KIRISH</button>
+  </div>
+</section>
+
+<!-- RO'YXATDAN KEYINGI SAHIFA -->
+<section id="welcome" class="center hide">
+  <div class="box">
+    <h1>Xush kelibsiz!</h1>
+    <p class="sub">Sizga mos kurslarni tanlashimiz uchun bir necha savol.</p>
+    <label for="nm">Ismingiz</label>
+    <input id="nm" autocomplete="given-name">
+    <label>Qaysi yo‘nalish qiziq?</label>
+    <div class="chips" id="dirs"></div>
+    <div id="werr" class="err"></div>
+    <button id="save" class="btn">SAQLASH VA BOSHLASH</button>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dash" class="app hide">
+  <aside>
+    <div class="logo"><i></i>Platforma</div>
+    <a class="on">Bosh sahifa</a><a>Kurslarim</a><a>Vazifalar</a><a>Profil</a>
+    <button class="out" id="out">Chiqish</button>
+  </aside>
+  <main>
+    <div class="top">
+      <div><h1 id="hi"></h1><div class="sub" style="margin:0" id="meta"></div></div>
+      <div class="av" id="av"></div>
+    </div>
+    <div class="panel" id="cred"><h2>Kirish ma‘lumotlari</h2><p class="sub" style="margin-bottom:12px">Parol avtomatik yaratildi. Keyingi kirish uchun saqlab qo‘ying.</p><div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center"><span>Telefon: <b id="cph"></b></span><span>Parol: <b id="cpw" style="font-family:monospace;font-size:16px"></b></span><button class="cb" id="cshow">Yashirish</button><button class="cb" id="ccopy">Nusxa olish</button></div></div>
+    <div class="stats">
+      <div class="st"><span class="sub">Kirishlar soni</span><b id="s1">0</b></div>
+      <div class="st"><span class="sub">Faol kurslar</span><b>2</b></div>
+      <div class="st"><span class="sub">Bajarilgan vazifalar</span><b id="s3">0</b></div>
+      <div class="st"><span class="sub">Oxirgi kirish</span><b id="s4" style="font-size:16px;margin-top:10px"></b></div>
+    </div>
+    <div class="panel">
+      <h2>Kurslarim</h2>
+      <div class="course"><div class="t"><b id="c1">Frontend</b><br><small>12 / 30 dars</small><div class="bar"><i style="width:40%"></i></div></div><button>Davom etish</button></div>
+      <div class="course"><div class="t"><b>Ingliz tili</b><br><small>5 / 40 dars</small><div class="bar"><i style="width:12%"></i></div></div><button>Davom etish</button></div>
+    </div>
+    <div class="panel tasks">
+      <h2>Vazifalarim</h2>
+      <div id="tl"></div>
+      <div class="add"><input id="nt" placeholder="Yangi vazifa yozing"><button class="btn" id="na">Qo‘shish</button></div>
+    </div>
+  </main>
+</section>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var DIRS=['Frontend','Backend','Mobil ilova','Dizayn','Sun’iy intellekt','Ingliz tili'];
+  var mode='login',dir='';
+
+  // Saqlash: brauzer xotirasi (localStorage), xatolarga chidamli
+  function rd(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+  function wr(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  var mem={};
+  function users(){return rd('pf_users',mem)}
+  function saveUsers(u){mem=u;wr('pf_users',u)}
+
+  function hash(s){
+    if(window.crypto&&crypto.subtle){
+      return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(b){
+        return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('')});
+    }
+    return Promise.resolve(btoa(unescape(encodeURIComponent(s))));
+  }
+  function show(id){['auth','welcome','dash'].forEach(function(s){$(s).classList.toggle('hide',s!==id)})}
+  function digits(p){return p.replace(/\D/g,'')}
+
+  // Tablar
+  function setMode(m){
+    mode=m;$('tL').classList.toggle('on',m==='login');$('tR').classList.toggle('on',m==='reg');
+    $('go').textContent=m==='login'?'KIRISH':'RO‘YXATDAN O‘TISH';$('err').textContent='';
+    $('pw').value='';$('pw').type='password';$('eye').textContent='Ko‘rsatish';sync();
+  }
+  // Ro'yxatdan o'tishda: raqam to'liq kiritilgach parol avtomatik chiqadi
+  function newPw(){
+    var c='abcdefghjkmnpqrstuvwxyz23456789',a=new Uint32Array(8),s='',i;
+    if(window.crypto&&crypto.getRandomValues)crypto.getRandomValues(a);else for(i=0;i<8;i++)a[i]=Math.random()*4e9;
+    for(i=0;i<8;i++)s+=c[a[i]%c.length];
+    $('pw').value=s;$('pw').type='text';$('eye').textContent='Yashirish';
+  }
+  function sync(){
+    $('pwbox').classList.toggle('hide',mode==='reg');
+    $('gen').classList.add('hide');
+  }
+  $('ph').oninput=sync;
+  $('nw').onclick=newPw;
+  $('cp').onclick=function(){
+    var b=this,p=$('pw');
+    try{navigator.clipboard.writeText(p.value).then(function(){b.textContent='Nusxalandi'})}catch(e){p.select();b.textContent='Belgilandi'}
+  };
+  $('tL').onclick=function(){setMode('login')};
+  $('tR').onclick=function(){setMode('reg')};
+  $('eye').onclick=function(){var p=$('pw');var h=p.type==='password';p.type=h?'text':'password';this.textContent=h?'Yashirish':'Ko‘rsatish'};
+
+  $('go').onclick=function(){
+    var ph=digits($('ph').value),pw=$('pw').value,e=$('err');
+    if(ph.length!==12||ph.indexOf('998')!==0){e.textContent='Telefon raqamni to‘liq kiriting: +998 XX XXX XX XX';return}
+    if(mode==='reg'){newPw();pw=$('pw').value}
+    else if(pw.length<6){e.textContent='Parol kamida 6 ta belgidan iborat bo‘lsin';return}
+    hash(pw).then(function(h){
+      var u=users();
+      if(mode==='reg'){
+        if(u[ph]){e.textContent='Bu raqam allaqachon ro‘yxatdan o‘tgan. “Kirish” bo‘limiga o‘ting.';return}
+        u[ph]={phone:ph,hash:h,pw:pw,name:'',dir:'',done:false,logins:1,last:Date.now(),tasks:[{t:'Birinchi darsni ko‘rish',d:false},{t:'Profilni to‘ldirish',d:true}]};
+        saveUsers(u);start(ph);
+      }else{
+        if(!u[ph]||u[ph].hash!==h){e.textContent='Raqam yoki parol noto‘g‘ri';return}
+        u[ph].logins++;u[ph].last=Date.now();saveUsers(u);start(ph);
+      }
+    });
+  };
+
+  // Sessiya — chiqib ketib qaytsa ham eslab qoladi
+  function start(ph){wr('pf_session',ph);route()}
+  function route(){
+    var ph=rd('pf_session',null),u=users();
+    if(!ph||!u[ph]){show('auth');return}
+    if(!u[ph].done){$('nm').value=u[ph].name||'';dir=u[ph].dir||'';drawDirs();show('welcome');return}
+    drawDash(u[ph]);show('dash');
+  }
+
+  // Welcome
+  function drawDirs(){
+    $('dirs').innerHTML='';
+    DIRS.forEach(function(d){
+      var b=document.createElement('button');b.type='button';b.textContent=d;
+      if(d===dir)b.className='on';
+      b.onclick=function(){dir=d;drawDirs()};$('dirs').appendChild(b);
+    });
+  }
+  $('save').onclick=function(){
+    var n=$('nm').value.trim();
+    if(!n){$('werr').textContent='Ismingizni yozing';return}
+    if(!dir){$('werr').textContent='Yo‘nalishni tanlang';return}
+    var ph=rd('pf_session',null),u=users();
+    u[ph].name=n;u[ph].dir=dir;u[ph].done=true;saveUsers(u);route();
+  };
+
+  // Dashboard
+  function drawDash(u){
+    $('hi').textContent='Salom, '+u.name+'!';
+    $('cred').classList.toggle('hide',!u.pw);
+    $('cph').textContent='+'+u.phone;
+    $('cpw').textContent=credShown?(u.pw||''):'••••••••';
+    $('cshow').textContent=credShown?'Yashirish':'Ko‘rsatish';
+    $('meta').textContent='Yo‘nalish: '+u.dir+' · +'+u.phone;
+    $('av').textContent=u.name.charAt(0).toUpperCase();
+    $('c1').textContent=u.dir;
+    $('s1').textContent=u.logins;
+    $('s4').textContent=new Date(u.last).toLocaleString('uz-UZ');
+    $('s3').textContent=u.tasks.filter(function(t){return t.d}).length;
+    var box=$('tl');box.innerHTML='';
+    u.tasks.forEach(function(t,i){
+      var l=document.createElement('label'),c=document.createElement('input'),s=document.createElement('span');
+      c.type='checkbox';c.checked=t.d;s.textContent=t.t;
+      if(t.d)s.style.textDecoration='line-through';
+      c.onchange=function(){var all=users(),me=all[rd('pf_session',null)];me.tasks[i].d=c.checked;saveUsers(all);drawDash(me)};
+      l.appendChild(c);l.appendChild(s);box.appendChild(l);
+    });
+  }
+  var credShown=true;
+  function me(){return users()[rd('pf_session',null)]}
+  $('cshow').onclick=function(){credShown=!credShown;drawDash(me())};
+  $('ccopy').onclick=function(){
+    var b=this;try{navigator.clipboard.writeText(me().pw).then(function(){b.textContent='Nusxalandi'})}catch(e){b.textContent='Nusxalab bo‘lmadi'}
+  };
+  $('na').onclick=function(){
+    var v=$('nt').value.trim();if(!v)return;
+    var all=users(),me=all[rd('pf_session',null)];me.tasks.push({t:v,d:false});saveUsers(all);$('nt').value='';drawDash(me);
+  };
+  $('out').onclick=function(){try{localStorage.removeItem('pf_session')}catch(e){}mem={};$('pw').value='';setMode('login');route()};
+
+  route();
+})();
+</script>
+</body>
+</html>
